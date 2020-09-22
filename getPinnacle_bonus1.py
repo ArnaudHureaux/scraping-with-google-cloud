@@ -13,6 +13,11 @@ import time
 import numpy as np
 from datetime import date
 
+import gspread
+import pandas as pd
+from oauth2client.service_account import ServiceAccountCredentials
+import numpy as np
+
 def getPinnacleDF():
     
 	display = Display(visible=0, size=(800, 600))
