@@ -71,6 +71,41 @@ def getPinnacleDF():
 	df=df.drop(columns=['Prenom A','Nom A','Prenom H','Nom H'])
 	return df
 
+def updateGSwithDF(df,nameSheet):
+
+	scope=['https://www.googleapis.com/auth/spreadsheets',
+	'https://www.googleapis.com/auth/drive.file',
+	'https://www.googleapis.com/auth/drive']
+
+	creds=ServiceAccountCredentials.from_json_keyfile_name('YourProject.json',scope)
+	client=gspread.authorize(creds)
+	sh=client.open_by_url('https://docs.google.com/spreadsheets/d/1Hz_DysSzKu_5f7Z7PngBtpK14Cpwm0cIq8w_O53bIkY/edit#gid=0')
+	sh=sh.worksheet(nameSheet)
+
+	a=sh.get_all_values()
+
+	alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	target='A'+str(len(a)+1)+':'+alphabet[len(a[0])-1]+str(len(a)+1+len(df)-1)
+	sh.update(target,df.values.tolist())
+
+def SendEmail():
+    user = 'yourmail@gmail.com'
+    app_password = 'azdakzdpazdlaz'
+    to = 'yourmail@gmail.com'
+
+    subject = 'Scraping : Pinnacle'
+    content = ['The site has been scrape sucessfully !']
+
+    with yagmail.SMTP(user, app_password) as yag:
+        yag.send(to, subject, content)
+        print('Sent email successfully.')
+
 pi=getPinnacleDF()
 pi.to_csv('pi.csv',index=False,header=True)
 
+#Bonus1
+pi = pi.applymap(str)
+updateGSwithDF(pi,'Feuille 1')
+
+#Bonus2
+SendEmail()
