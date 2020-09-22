@@ -71,6 +71,25 @@ def getPinnacleDF():
 	df=df.drop(columns=['Prenom A','Nom A','Prenom H','Nom H'])
 	return df
 
+def updateGSwithDF(df,nameSheet):
+
+	scope=['https://www.googleapis.com/auth/spreadsheets',
+	'https://www.googleapis.com/auth/drive.file',
+	'https://www.googleapis.com/auth/drive']
+
+	creds=ServiceAccountCredentials.from_json_keyfile_name('YourProject.json',scope)
+	client=gspread.authorize(creds)
+	sh=client.open_by_url('https://docs.google.com/spreadsheets/d/1Hz_DysSzKu_5f7Z7PngBtpK14Cpwm0cIq8w_O53bIkY/edit#gid=0')
+	sh=sh.worksheet(nameSheet)
+
+	a=sh.get_all_values()
+
+	alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	target='A'+str(len(a)+1)+':'+alphabet[len(a[0])-1]+str(len(a)+1+len(df)-1)
+	sh.update(target,df.values.tolist())
+
 pi=getPinnacleDF()
 pi.to_csv('pi.csv',index=False,header=True)
 
+pi = pi.applymap(str)
+updateGSwithDF(pi,'Feuille 1')
