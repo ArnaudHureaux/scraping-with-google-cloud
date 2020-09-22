@@ -98,6 +98,7 @@ pip3 install selenium
 pip3 install pyvirtualdisplay
 pip3 install datetime
 pip3 install requests
+pip3 install bs4
 
 # Get the webdriver needed for the use of selenium
 sudo apt-get install unzip &&
@@ -111,4 +112,6 @@ wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleap
 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ &&
 echo 'success?'
 
-pip3 install bs4
+
+# Get crontab
+apt-get install cron
