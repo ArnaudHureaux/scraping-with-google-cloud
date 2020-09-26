@@ -2,14 +2,14 @@
 # (Installs all required dependencies on Linux)
 
 # Make sure this script is only run on Linux
-value="$(uname)"
-if [ $value == "Linux" ]
-then
-  echo "Initializing Requirements Setup..."
-else
-  echo "Not on a Linux machine. Exiting..."
-  exit
-fi
+# value="$(uname)"
+# if [ $value == "Linux" ]
+# then
+#   echo "Initializing Requirements Setup..."
+# else
+#   echo "Not on a Linux machine. Exiting..."
+#   exit
+# fi
 
 # Go home
 cd ~
