@@ -69,6 +69,7 @@ def getPinnacleDF():
 	df['Joueur H']=df['Nom H']+' '+df['Prenom H'].str[0]
 	df['Joueur A']=df['Nom A']+' '+df['Prenom A'].str[0]
 	df=df.drop(columns=['Prenom A','Nom A','Prenom H','Nom H'])
+	# changement
 	return df
 
 pi=getPinnacleDF()
